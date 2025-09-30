@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      # Mount the project root into the container so `/app/app` and `/app/data` exist
+      - ./:/app
+    environment:
+      FLASK_ENV: development
+      # Use the application factory defined in app/__init__.py
+      FLASK_APP: "app:create_app"
+    command: flask run --host=0.0.0.0 --port=5000
